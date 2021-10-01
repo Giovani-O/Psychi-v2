@@ -1,4 +1,4 @@
-# psychi-v2
+# psychi-v2 (Work in Progress)
 
 ## Project setup
 ```
