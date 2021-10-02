@@ -4,6 +4,7 @@ import App from '../App.vue'
 import Login from '../views/Login.vue'
 import Dashboard from '../views/Dashboard.vue'
 import Register from '../views/Register.vue'
+import Artist from '../views/Artist.vue'
 
 Vue.use(VueRouter)
 
@@ -11,7 +12,8 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: App
+    component: App,
+    redirect: '/dashboard',
   },
   {
     path: '/login',
@@ -27,6 +29,12 @@ const routes = [
     path: '/register',
     name: 'Register',
     component: Register
+  },
+  {
+    path: `/artist/:name`,
+    name: 'Artist',
+    component: Artist,
+    props: true
   },
   {
     path: '/about',

@@ -8,7 +8,7 @@
 					<h1 style="color: white">Cadastre-se no <span class="psychi">Psychi</span></h1>
 					<v-text-field 
 						dark class="login-text" 
-						label="Nome de usuário" 
+						:label="selectedUserType == 1 ? 'Nome de usuário' : 'Nome do artista'" 
 						color="#771cff"
 					>
 					</v-text-field>
@@ -22,23 +22,28 @@
 						dark class="login-text" 
 						label="Senha" 
 						color="#771cff"
+						type="password"
 					>
 					</v-text-field>
 					<v-text-field 
 						dark class="login-text" 
 						label="Confirmar Senha" 
 						color="#771cff"
+						type="password"
 					>
 					</v-text-field>
 					<v-select
 						dark
 						:items="userType"
+						v-model="selectedUserType"
 						item-text="type"
 						item-value="code"
 						label="Tipo de usuário"
 					>
 					</v-select>
-					<v-btn dark color="transparent" class="rounded-pill action-btn">Cadastrar</v-btn>
+					<v-btn dark color="transparent" class="rounded-pill action-btn">
+						<router-link class="btn-link" to="/dashboard"> Cadastrar</router-link>
+					</v-btn>
 				</div>
 			</v-card>
 		</v-col>
@@ -49,6 +54,7 @@
 export default {
   data() {
     return {
+			selectedUserType: 1,
 			userType: [
 				{
 					code: 1,
