@@ -2,21 +2,21 @@
   <v-row class=" mt-4 mx-10">
 		<v-col cols="12">
 			
-			<v-card color="login-card">
+			<v-card color="main-card">
 				<v-progress-linear class="float-start" value="100" color="#771cff"></v-progress-linear>
 				<div class="py-16 px-16">
 					<v-row>
-						<v-col cols="5">
+						<v-col cols="4">
 							<v-img
-							width="400px"
-							height="400px"
+							width="350px"
+							height="350px"
 							:src="thumbnail"
 						>
 						</v-img>
 						</v-col>
-						<v-col cols="7">
-							<h1 style="color: white">{{ this.$route.params.name }}</h1>
-							<p class="artist-bio">
+						<v-col cols="8"> 
+							<h1 style="color:white">Placeholder Album title</h1>
+							<p class="album-info">
 								Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
 								Vivamus tincidunt nulla suscipit massa convallis interdum. 
 								Cras faucibus magna ac mollis tristique. 
@@ -27,39 +27,12 @@
 								Maecenas nec sollicitudin metus, nec venenatis ante. Donec rhoncus facilisis ipsum nec finibus. 
 								Nam volutpat ex non ornare eleifend. Nunc in ante cursus, luctus nunc at, faucibus purus.
 							</p>
-							<p class="artist-bio">
-								Vestibulum et ultricies mi, nec semper nulla. 
-								Donec gravida dolor non libero ullamcorper, sed sollicitudin felis condimentum. 
-								Vivamus tempus ipsum ac dui laoreet feugiat. 
-								Nam ut erat fringilla, aliquam arcu eu, dignissim felis. 
-								Duis ultricies euismod felis eget fringilla. Pellentesque vitae dignissim odio. 
-								Cras non vestibulum enim. 
-							</p>
 						</v-col>
 					</v-row>
+
 					<v-divider dark class="mt-8 mb-4"></v-divider>
-					<h2 style="color: white" class="mb-4">Albums</h2>
-					<v-row>
-						<v-col
-							v-for="z in 4"
-							:key="`${1}${z}`"
-							cols="6"
-							md="2"
-							>
-								<router-link to="/album">
-									<v-sheet 
-										width="150"
-										height="150"
-										class="thumbnail mr-16"
-										elevation="3"
-									>
-											<p>Album {{ z }}</p>
-									</v-sheet>
-								</router-link>
-						</v-col>
-					</v-row>
-					<v-divider dark class="mt-8 mb-4"></v-divider>
-					<h2 style="color: white" class="mb-4">Músicas</h2>
+					<h2 style="color: white" class="mb-4">Faixas</h2>
+
 					<v-row>
 						<v-col cols="12">
 							<v-data-table
@@ -108,61 +81,61 @@ export default {
 			songs: [
 				{ 
 					songName: 'Placeholder song 1', 
-					artistName: this.$route.params.name, 
+					artistName: 'Placeholder artist name', 
 					albumName: 'Album Name',
 					actions: 'Play' 
 				},
 				{ 
 					songName: 'Placeholder song 2', 
-					artistName: this.$route.params.name, 
+					artistName: 'Placeholder artist name', 
 					albumName: 'Album Name', 
 					actions: 'Play'
 				},
 				{ 
 					songName: 'Placeholder song 3', 
-					artistName: this.$route.params.name, 
+					artistName: 'Placeholder artist name', 
 					albumName: 'Album Name', 
 					actions: 'Play'
 				},
 				{ 
 					songName: 'Placeholder song 4', 
-					artistName: this.$route.params.name, 
+					artistName: 'Placeholder artist name', 
 					albumName: 'Album Name', 
 					actions: 'Play'
 				},
 				{ 
 					songName: 'Placeholder song 5', 
-					artistName: this.$route.params.name, 
+					artistName: 'Placeholder artist name', 
 					albumName: 'Album Name', 
 					actions: 'Play'
 				},
 				{ 
 					songName: 'Placeholder song 6', 
-					artistName: this.$route.params.name, 
+					artistName: 'Placeholder artist name', 
 					albumName: 'Album Name', 
 					actions: 'Play'
 				},
 				{ 
 					songName: 'Placeholder song 7', 
-					artistName: this.$route.params.name, 
+					artistName: 'Placeholder artist name', 
 					albumName: 'Album Name', 
 					actions: 'Play'
 				},
 				{ 
 					songName: 'Placeholder song 8', 
-					artistName: this.$route.params.name, 
+					artistName: 'Placeholder artist name', 
 					albumName: 'Album Name', 
 					actions: 'Play'
 				},
 				{ 
 					songName: 'Placeholder song 9', 
-					artistName: this.$route.params.name, 
+					artistName: 'Placeholder artist name', 
 					albumName: 'Album Name', 
 					actions: 'Play'
 				},
 				{ 
 					songName: 'Placeholder song 10', 
-					artistName: this.$route.params.name, 
+					artistName: 'Placeholder artist name', 
 					albumName: 'Album Name', 
 					actions: 'Play'
 				},
@@ -170,11 +143,7 @@ export default {
 		}
 	},
 	mounted() {
-		if (this.$route.params.name == 'Sabaton') {
-			this.thumbnail = require('@/assets/sabaton.jpg');
-		}else{
-			this.thumbnail = require('@/assets/rhapsody.jpg');
-		}
+		this.thumbnail = require('@/assets/placeholder.jpg');
 	}
 }
 </script>
@@ -182,7 +151,7 @@ export default {
 <style scoped>
 	@import url('https://fonts.googleapis.com/css2?family=Galada&display=swap');
 
-	.login-card {
+	.main-card {
 		background-color: black !important;
 	}
 
@@ -201,7 +170,7 @@ export default {
 		text-decoration: none !important;
 	}
 
-	.artist-bio {
+	.album-info {
 		color: rgb(184, 184, 184);
 	}
 

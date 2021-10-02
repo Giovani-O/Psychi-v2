@@ -5,6 +5,9 @@ import Login from '../views/Login.vue'
 import Dashboard from '../views/Dashboard.vue'
 import Register from '../views/Register.vue'
 import Artist from '../views/Artist.vue'
+import Album from '../views/Album.vue'
+import Playlist from '../views/Playlist.vue'
+import CreateAlbum from '../views/CreateAlbum.vue'
 
 Vue.use(VueRouter)
 
@@ -35,6 +38,22 @@ const routes = [
     name: 'Artist',
     component: Artist,
     props: true
+  },
+  {
+    path: `/album`,
+    name: 'Album',
+    component: Album,
+  },
+  {
+    path: `/playlist/:title`,
+    name: 'Playlist',
+    component: Playlist,
+    props: true
+  },
+  {
+    path: `/createalbum`,
+    name: 'CreateAlbum',
+    component: CreateAlbum,
   },
   {
     path: '/about',

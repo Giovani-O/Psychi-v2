@@ -12,12 +12,15 @@
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
       <v-toolbar-title>
-        <router-link to="/dashboard" class="psychi">
+        <router-link title="Psychi || Home" to="/dashboard" class="psychi">
           Psychi
         </router-link>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <router-link to="/login">
+      <router-link to="/createalbum">
+        <v-icon title="Adicionar Albuns/Músicas" class="mr-4">mdi-plus</v-icon>
+      </router-link>
+      <router-link title="Login" to="/login">
         <v-icon large>mdi-account-circle</v-icon>
       </router-link>
     </v-app-bar>
@@ -44,12 +47,15 @@
       <h3 class="drawer-title">Playlists</h3>
       <div>
         <v-list-item v-for="item in playlists" :key="item">
-          <v-btn 
-            :color="btnColor" 
-            width="100%"
-          >
-            {{ item.title }}
-          </v-btn>
+          <router-link :to="{path: '/playlist/' + item.title}">
+            <v-btn 
+              :color="btnColor" 
+              width="100%"
+              class="btn-link ml-0 mr-0"
+            >
+              {{ item.title }}
+            </v-btn>
+          </router-link>
         </v-list-item>
       </div>
     </v-navigation-drawer>
@@ -218,5 +224,16 @@
   .drawer-title {
     text-align: center;
     color: white;
+  }
+
+  .btn-link{
+    color: white;
+    text-decoration: none;
+    width: 220px !important;
+  }
+
+  .btn-link:hover {
+    color: #771cff;
+    transition: .5s;
   }
 </style>

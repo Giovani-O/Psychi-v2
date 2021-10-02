@@ -21,14 +21,16 @@
 			cols="6"
 			md="3"
 			>
-			<v-sheet 
-				width="280"
-				height="280"
-				class="thumbnail mr-16"
-				elevation="3"
-			>
-					<p>Album {{ z }}</p>
-			</v-sheet>
+				<router-link to="/album">
+					<v-sheet 
+						width="280"
+						height="280"
+						class="thumbnail mr-16"
+						elevation="3"
+					>
+						<p>Album {{ z }}</p>
+					</v-sheet>
+				</router-link>
 			</v-col>
     </template>
   </v-row>
@@ -95,15 +97,15 @@ export default {
 
 <style scoped>
 	.thumbnail {
-    background-image: url("./../assets/placeholder.jpg");
-    background-size: cover;
-    display: flex;
-  }
-  .thumbnail p{
-    color: white;
-    font-size: 20px;
-    align-self: flex-end;
-  }
+		background-image: url("./../assets/placeholder.jpg");
+		background-size: cover;
+		display: flex;
+	}
+	.thumbnail p{
+		color: white;
+		font-size: 20px;
+		align-self: flex-end;
+	}
 
 	.artist-name {
 		color: white;
