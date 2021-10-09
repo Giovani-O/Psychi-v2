@@ -40,12 +40,12 @@ export default {
 			headers: [
 				{
 					text: 'Música',
-					value: 'songName',
+					value: 'title',
 					width: '30%'
 				},
 				{
 					text: 'Artista',
-					value: 'artistName',
+					value: 'artist',
 					width: '28%'
 				},
 				{
@@ -61,62 +61,62 @@ export default {
 			],
 			songs: [
 				{ 
-					songName: 'Placeholder song 1', 
-					artistName: 'Placeholder artist name', 
+					title: 'Placeholder song 1', 
+					artist: 'Placeholder artist name', 
 					albumName: 'Album Name',
 					actions: 'Play | Remover' 
 				},
 				{ 
-					songName: 'Placeholder song 2', 
-					artistName: 'Placeholder artist name', 
+					title: 'Placeholder song 2', 
+					artist: 'Placeholder artist name', 
 					albumName: 'Album Name', 
 					actions: 'Play | Remover'
 				},
 				{ 
-					songName: 'Placeholder song 3', 
-					artistName: 'Placeholder artist name', 
+					title: 'Placeholder song 3', 
+					artist: 'Placeholder artist name', 
 					albumName: 'Album Name', 
 					actions: 'Play | Remover'
 				},
 				{ 
-					songName: 'Placeholder song 4', 
-					artistName: 'Placeholder artist name', 
+					title: 'Placeholder song 4', 
+					artist: 'Placeholder artist name', 
 					albumName: 'Album Name', 
 					actions: 'Play | Remover'
 				},
 				{ 
-					songName: 'Placeholder song 5', 
-					artistName: 'Placeholder artist name', 
+					title: 'Placeholder song 5', 
+					artist: 'Placeholder artist name', 
 					albumName: 'Album Name', 
 					actions: 'Play | Remover'
 				},
 				{ 
-					songName: 'Placeholder song 6', 
-					artistName: 'Placeholder artist name', 
+					title: 'Placeholder song 6', 
+					artist: 'Placeholder artist name', 
 					albumName: 'Album Name', 
 					actions: 'Play | Remover'
 				},
 				{ 
-					songName: 'Placeholder song 7', 
-					artistName: 'Placeholder artist name', 
+					title: 'Placeholder song 7', 
+					artist: 'Placeholder artist name', 
 					albumName: 'Album Name', 
 					actions: 'Play | Remover'
 				},
 				{ 
-					songName: 'Placeholder song 8', 
-					artistName: 'Placeholder artist name', 
+					title: 'Placeholder song 8', 
+					artist: 'Placeholder artist name', 
 					albumName: 'Album Name', 
 					actions: 'Play | Remover'
 				},
 				{ 
-					songName: 'Placeholder song 9', 
-					artistName: 'Placeholder artist name', 
+					title: 'Placeholder song 9', 
+					artist: 'Placeholder artist name', 
 					albumName: 'Album Name', 
 					actions: 'Play | Remover'
 				},
 				{ 
-					songName: 'Placeholder song 10', 
-					artistName: 'Placeholder artist name', 
+					title: 'Placeholder song 10', 
+					artist: 'Placeholder artist name', 
 					albumName: 'Album Name', 
 					actions: 'Play | Remover'
 				},

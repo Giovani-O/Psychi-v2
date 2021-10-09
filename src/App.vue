@@ -87,8 +87,8 @@
             ></v-img>
           </v-col>
           <v-col cols="9">
-            <h4 id="song-title">Placeholder</h4>
-            <h6 id="artist-name">Placeholder</h6>
+            <h4 id="song-title">{{ current.title}}</h4>
+            <h6 id="artist-name">{{ current.artist }}</h6>
           </v-col>
         </v-row>
       </div>
@@ -96,32 +96,58 @@
 
       <div>
         <v-btn 
+          v-if="!loopStatus"
           :color="btnColor" 
           class="rounded-lg mr-2 ml-2"
+          @click="toggleLoop()"
         >
           <v-icon small>
             mdi-repeat
           </v-icon>
         </v-btn>
         <v-btn 
+          v-if="loopStatus"
           :color="btnColor" 
           class="rounded-lg mr-2 ml-2"
+          @click="toggleLoop()"
+        >
+          <v-icon small>
+            mdi-repeat-once
+          </v-icon>
+        </v-btn>
+        <v-btn 
+          :color="btnColor" 
+          class="rounded-lg mr-2 ml-2"
+          @click="prev()"
         >
           <v-icon>
             mdi-skip-previous
           </v-icon>
         </v-btn>
-        <v-btn 
+        <v-btn
+          v-if="!isPlaying"
           :color="btnColor" 
           class="rounded-lg mr-2 ml-2"
+          @click="play(current)"
         >
           <v-icon large>
             mdi-play
           </v-icon>
         </v-btn>
+        <v-btn
+          v-if="isPlaying"
+          :color="btnColor" 
+          class="rounded-lg mr-2 ml-2"
+          @click="pause()"
+        >
+          <v-icon large>
+            mdi-pause
+          </v-icon>
+        </v-btn>
         <v-btn 
           :color="btnColor" 
           class="rounded-lg mr-2 ml-2"
+          @click="next()"
         >
           <v-icon>
             mdi-skip-next
@@ -145,6 +171,7 @@
           max="100"
           min="0"
           color="#771cff"
+          v-model="audioVolume"
         ></v-slider>
       </div>
     </v-footer>
@@ -156,9 +183,34 @@
   export default {
     data() { 
       return {
+        // Instância de um novo elemento de audio do HTML5
+        player: new Audio(),
+
+        current: {},
+        index: 0,
+        isPlaying: false,
+        loopStatus: false,
+        audioVolume: 0.05,
         drawer: null,
         components: {
         },
+        songs: [
+          {
+            title: 'Elevation',
+            artist: 'Edictum',
+            src: require('@/assets/audio/elevation.mp3'),
+          },
+          {
+            title: 'Neon Renegade',
+            artist: 'Harris Heller',
+            src: require('@/assets/audio/neonrenegade.mp3'),
+          },
+          {
+            title: 'Cyber Attack',
+            artist: 'Infraction',
+            src: require('@/assets/audio/cyberattack.mp3'),
+          }
+        ],
         playlists: [
           {
             code: 1,
@@ -204,6 +256,54 @@
         btnColor: 'transparent'
       }
     },
+    watch: {
+      audioVolume(){
+        this.player.volume = (this.audioVolume / 100);  
+      }
+    },
+    created() {
+      this.current = this.songs[this.index];
+      this.player.src = this.current.src;
+      this.player.volume = this.audioVolume;
+      this.current = this.songs[0];
+      this.loopStatus = false;
+    },
+    methods: {
+      play(song) {
+        if (typeof song.src != "undefined"){
+          this.current = song;
+          this.player.src = this.current.src;
+        }
+        this.player.play();
+        this.isPlaying = true;
+      },
+      pause() {
+        this.player.pause();
+        this.isPlaying = false;
+      },
+      next() {
+        this.index++;
+        if (this.index > this.songs.length - 1){
+          this.index = 0;
+        }
+
+        this.current = this.songs[this.index];
+        this.play(this.current);
+      },
+      prev() {
+        this.index--;
+        if (this.index < 0){
+          this.index = this.songs.length - 1;
+        }
+
+        this.current = this.songs[this.index];
+        this.play(this.current);
+      },
+      toggleLoop(){
+        this.loopStatus = !this.loopStatus;
+        this.player.loop = this.loopStatus;
+      }
+    }
   }
 </script>
 
