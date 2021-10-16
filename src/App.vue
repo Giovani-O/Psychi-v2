@@ -66,7 +66,7 @@
       class="grey darken-4 lighten-2 mb-16 pb-10"
       color="main-view"
     >
-      <router-view></router-view>
+      <router-view ></router-view>
     </v-main>
 
     <!-- FOOTER -->
@@ -302,7 +302,7 @@
       toggleLoop(){
         this.loopStatus = !this.loopStatus;
         this.player.loop = this.loopStatus;
-      }
+      },
     }
   }
 </script>

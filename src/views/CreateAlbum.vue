@@ -10,6 +10,7 @@
 						dark class="create-text" 
 						label="Nome do Album" 
 						color="#771cff"
+						v-model="albumName"
 					>
 					</v-text-field>
 					<v-file-input
@@ -18,21 +19,95 @@
             prepend-icon="mdi-image"
             dark
             color="#771cff"
+						v-model="cover"
           ></v-file-input>
-          <v-file-input
-            v-for="i in numberOfTracks"
-            :key="i"
-            label="Faixa"
-            prepend-icon="mdi-music"
-            append-icon="mdi-plus"
-            @click:append="numberOfTracks++"
-            dark
-            color="#771cff"
-          ></v-file-input>
+					<v-row>
+						<v-col cols="6">
+							<v-text-field
+								dark class="create-text"
+								label="Nome da Faixa"
+								color="#771cff"
+								v-model="songs[0].title"
+							>
+							</v-text-field>
+						</v-col>
+						<v-col>
+							<v-file-input
+								label="Faixa"
+								prepend-icon="mdi-music"
+								@click="addMoreTracks()"
+								dark
+								color="#771cff"
+								v-model="songs[0].src"
+								accept="audio/mpeg"
+							></v-file-input>
+						</v-col>
+						
+						<v-col cols="6">
+							<v-text-field
+								dark class="create-text"
+								label="Nome da Faixa"
+								color="#771cff"
+								v-model="songs[1].title"
+							>
+							</v-text-field>
+						</v-col>
+						<v-col>
+							<v-file-input
+								label="Faixa"
+								prepend-icon="mdi-music"
+								@click="addMoreTracks()"
+								dark
+								color="#771cff"
+								v-model="songs[1].src"
+							></v-file-input>
+						</v-col>
+
+						<v-col cols="6">
+							<v-text-field
+								dark class="create-text"
+								label="Nome da Faixa"
+								color="#771cff"
+								v-model="songs[2].title"
+							>
+							</v-text-field>
+						</v-col>
+						<v-col>
+							<v-file-input
+								label="Faixa"
+								prepend-icon="mdi-music"
+								@click="addMoreTracks()"
+								dark
+								color="#771cff"
+								v-model="songs[2].src"
+							></v-file-input>
+						</v-col>
+
+						<v-col cols="6">
+							<v-text-field
+								dark class="create-text"
+								label="Nome da Faixa"
+								color="#771cff"
+								v-model="songs[3].title"
+							>
+							</v-text-field>
+						</v-col>
+						<v-col>
+							<v-file-input
+								label="Faixa"
+								prepend-icon="mdi-music"
+								@click="addMoreTracks()"
+								dark
+								color="#771cff"
+								v-model="songs[3].src"
+							></v-file-input>
+						</v-col>
+					</v-row>
 					<v-btn 
             dark 
             color="transparent" 
             class="rounded-pill action-btn mr-4"
+						@click="saveAlbum()"
           >
 						Adicionar Album
 					</v-btn>
@@ -46,9 +121,59 @@
 export default {
   data() {
     return {
-      numberOfTracks: 1,
+			// Dados básicos de um álbum
+			artist: 'Placeholder',
+			albumName: '',
+			cover: '',
+			songs: [
+				{
+					code: 1,
+					title: '',
+					src: '',
+				},
+				{
+					code: 2,
+					title: '',
+					src: '',
+				},
+				{
+					code: 3,
+					title: '',
+					src: '',
+				},
+				{
+					code: 4,
+					title: '',
+					src: '',
+				},
+
+				// {
+				// 	title: 'Elevation',
+				// 	artist: 'Edictum',
+				// 	src: require('@/assets/audio/elevation.mp3'),
+				// },
+			],
     }
-  }
+  },
+	methods: {
+		saveAlbum(){
+			let album = [];
+			for(let i = 0; i <= this.songs.length/2; i++) {
+				album.push({
+					code: this.songs[i].code,
+					title: this.songs[i].title,
+					src: this.songs[i].src,
+					// src: new Blob([this.songs[i].src], {type: 'audio/mpeg'}),
+					artist: this.artist,
+					album: this.albumName,
+					cover: this.cover,
+				});
+			}
+
+			console.log(album);
+			this.$emit('albumSaved', album);
+		}
+	}
 }
 </script>
 
