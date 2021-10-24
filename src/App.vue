@@ -46,6 +46,20 @@
 
       <h3 class="drawer-title">Playlists</h3>
       <div>
+        <router-link to="/createplaylist">
+          <v-btn 
+            :color="btnCreate" 
+            width="100%"
+            class="my-4"
+            append="mdi-plus"
+            @click="createPlaylist()"
+          >
+            <v-icon class="mr-4">
+              mdi-plus
+            </v-icon>
+            Criar Playlist
+          </v-btn>
+        </router-link>
         <v-list-item v-for="item in playlists" :key="item">
           <router-link :to="{path: '/playlist/' + item.title}">
             <v-btn 
@@ -66,7 +80,7 @@
       class="grey darken-4 lighten-2 mb-16 pb-10"
       color="main-view"
     >
-      <router-view ></router-view>
+      <router-view></router-view>
     </v-main>
 
     <!-- FOOTER -->
@@ -179,6 +193,7 @@
 </template>
 
 <script>
+  import { bus } from '@/main';
 
   export default {
     data() { 
@@ -192,6 +207,7 @@
         loopStatus: false,
         audioVolume: 0.05,
         drawer: null,
+        localStorage: [],
         components: {
         },
         songs: [
@@ -253,7 +269,8 @@
             title: 'Playlist Pop',
           },
         ],
-        btnColor: 'transparent'
+        btnColor: 'transparent',
+        btnCreate: '#771cff',
       }
     },
     watch: {
@@ -267,6 +284,11 @@
       this.player.volume = this.audioVolume;
       this.current = this.songs[0];
       this.loopStatus = false;
+    },
+    mounted() {
+      bus.$on('albumSaved', (data) => {
+        this.localStorage = data;
+      });
     },
     methods: {
       play(song) {
@@ -303,6 +325,9 @@
         this.loopStatus = !this.loopStatus;
         this.player.loop = this.loopStatus;
       },
+      createPlaylist(){
+        bus.$emit('createPlaylist', this.localStorage);
+      }
     }
   }
 </script>

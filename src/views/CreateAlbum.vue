@@ -35,7 +35,6 @@
 							<v-file-input
 								label="Faixa"
 								prepend-icon="mdi-music"
-								@click="addMoreTracks()"
 								dark
 								color="#771cff"
 								v-model="songs[0].src"
@@ -56,7 +55,6 @@
 							<v-file-input
 								label="Faixa"
 								prepend-icon="mdi-music"
-								@click="addMoreTracks()"
 								dark
 								color="#771cff"
 								v-model="songs[1].src"
@@ -76,7 +74,6 @@
 							<v-file-input
 								label="Faixa"
 								prepend-icon="mdi-music"
-								@click="addMoreTracks()"
 								dark
 								color="#771cff"
 								v-model="songs[2].src"
@@ -96,7 +93,6 @@
 							<v-file-input
 								label="Faixa"
 								prepend-icon="mdi-music"
-								@click="addMoreTracks()"
 								dark
 								color="#771cff"
 								v-model="songs[3].src"
@@ -118,6 +114,8 @@
 </template>
 
 <script>
+import { bus } from '@/main';
+
 export default {
   data() {
     return {
@@ -146,32 +144,28 @@ export default {
 					title: '',
 					src: '',
 				},
-
-				// {
-				// 	title: 'Elevation',
-				// 	artist: 'Edictum',
-				// 	src: require('@/assets/audio/elevation.mp3'),
-				// },
 			],
     }
   },
 	methods: {
 		saveAlbum(){
 			let album = [];
-			for(let i = 0; i <= this.songs.length/2; i++) {
+			for(let i = 0; i <= 3; i++) {
 				album.push({
 					code: this.songs[i].code,
 					title: this.songs[i].title,
-					src: this.songs[i].src,
+					// src: this.songs[i].src,
 					// src: new Blob([this.songs[i].src], {type: 'audio/mpeg'}),
+					src: this.songs[i].src,
 					artist: this.artist,
 					album: this.albumName,
 					cover: this.cover,
 				});
 			}
 
-			console.log(album);
-			this.$emit('albumSaved', album);
+			bus.$emit('albumSaved', album);
+			window.alert('Album salvo');
+			this.$router.push('/dashboard');
 		}
 	}
 }
