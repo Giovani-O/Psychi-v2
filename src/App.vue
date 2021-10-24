@@ -46,20 +46,18 @@
 
       <h3 class="drawer-title">Playlists</h3>
       <div>
-        <router-link to="/createplaylist">
-          <v-btn 
-            :color="btnCreate" 
-            width="100%"
-            class="my-4"
-            append="mdi-plus"
-            @click="createPlaylist()"
-          >
-            <v-icon class="mr-4">
-              mdi-plus
-            </v-icon>
-            Criar Playlist
-          </v-btn>
-        </router-link>
+        <v-btn 
+          :color="btnCreate" 
+          width="100%"
+          class="my-4"
+          append="mdi-plus"
+          @click="dialog = !dialog"
+        >
+          <v-icon class="mr-4">
+            mdi-plus
+          </v-icon>
+          Criar Playlist
+        </v-btn>
         <v-list-item v-for="item in playlists" :key="item">
           <router-link :to="{path: '/playlist/' + item.title}">
             <v-btn 
@@ -73,6 +71,54 @@
         </v-list-item>
       </div>
     </v-navigation-drawer>
+
+    <!-- Playlist Dialog -->
+    <div class="text-center">
+      <v-dialog
+        v-model="dialog"
+        width="900"
+        overlay-opacity=".95"
+        overlay-color="black"
+        dark
+        transition="dialog-bottom-transition"
+      >
+        <template> 
+          <h1 style="color: white">Crie uma playlist</h1>
+          <v-row>
+            <v-col cols="6">
+              <v-text-field
+                label="Nome"
+                dark
+                color="#771cff"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="6">
+              <v-combobox
+                :items="localStorage"
+                item-text="title"
+                item-value="code"
+                return-object
+                v-model="newPlaylist"
+                label="Músicas"
+                dark
+                color="#771cff"
+                multiple
+              ></v-combobox>
+            </v-col>
+            <v-col cols="12">
+              <v-btn 
+                dark color="transparent" 
+                class="rounded-pill action-btn mr-4"
+                style="border: 1px solid !important; border-color: #771cff !important;"
+                @click="savePlaylist()"
+              >
+                Salvar
+              </v-btn>
+            </v-col>
+          </v-row>
+        </template>
+      </v-dialog>
+    </div>
 
     <!-- MAIN -->
 
@@ -208,9 +254,16 @@
         audioVolume: 0.05,
         drawer: null,
         localStorage: [],
+        newPlaylist: [],
+        dialog: false,
         components: {
         },
         songs: [
+          {
+            title: 'Venger',
+            artist: 'Perturbator',
+            src: require('@/assets/audio/venger.mp3'),
+          },
           {
             title: 'Elevation',
             artist: 'Edictum',
@@ -325,8 +378,8 @@
         this.loopStatus = !this.loopStatus;
         this.player.loop = this.loopStatus;
       },
-      createPlaylist(){
-        bus.$emit('createPlaylist', this.localStorage);
+      savePlaylist() {
+        console.log(this.newPlaylist)
       }
     }
   }
@@ -343,7 +396,7 @@
   }
 
   .main-view {
-    background-color: #000000;
+    background-color: #000000 !important;
   }
 
   .drawer-title {
@@ -362,3 +415,4 @@
     transition: .5s;
   }
 </style>
+

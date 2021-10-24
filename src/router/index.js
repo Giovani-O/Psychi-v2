@@ -8,7 +8,6 @@ import Artist from '../views/Artist.vue'
 import Album from '../views/Album.vue'
 import Playlist from '../views/Playlist.vue'
 import CreateAlbum from '../views/CreateAlbum.vue'
-import CreatePlaylist from '../views/CreatePlaylist.vue'
 
 Vue.use(VueRouter)
 
@@ -55,11 +54,6 @@ const routes = [
     path: `/createalbum`,
     name: 'CreateAlbum',
     component: CreateAlbum,
-  },
-  {
-    path: '/createplaylist',
-    name: 'CreatePlaylist',
-    component: CreatePlaylist,
   },
   {
     path: '/about',
