@@ -10,12 +10,14 @@
 						dark class="login-text" 
 						:label="selectedUserType == 1 ? 'Nome de usuário' : 'Nome do artista'" 
 						color="#771cff"
+						v-model="Fields.name"
 					>
 					</v-text-field>
 					<v-text-field 
 						dark class="login-text" 
 						label="E-mail" 
 						color="#771cff"
+						v-model="Fields.email"
 					>
 					</v-text-field>
 					<v-text-field 
@@ -23,6 +25,7 @@
 						label="Senha" 
 						color="#771cff"
 						type="password"
+						v-model="Fields.password"
 					>
 					</v-text-field>
 					<v-text-field 
@@ -30,6 +33,7 @@
 						label="Confirmar Senha" 
 						color="#771cff"
 						type="password"
+						v-model="confirmPassword"
 					>
 					</v-text-field>
 					<v-select
@@ -41,8 +45,8 @@
 						label="Tipo de usuário"
 					>
 					</v-select>
-					<v-btn dark color="transparent" class="rounded-pill action-btn">
-						<router-link class="btn-link" to="/dashboard"> Cadastrar</router-link>
+					<v-btn dark color="transparent" class="rounded-pill action-btn" @click="saveUser()">
+						Cadastrar
 					</v-btn>
 				</div>
 			</v-card>
@@ -51,6 +55,9 @@
 </template>
 
 <script>
+import axios from 'axios';
+// import DataService from '@/services/DataService.js';
+
 export default {
   data() {
     return {
@@ -65,8 +72,56 @@ export default {
 					type: 'Artista'
 				}
 			],
+			Fields: {
+				name: '',
+				email: '',
+				password: '',
+				artist: false,
+			},
+			confirmPassword: '',
+			headers: {
+				'Content-Type': 'application/json',
+			}
     }
-  }
+  },
+	components: {
+		// DataService,
+	},
+	watch: {
+		selectedUserType() {
+			if (this.selectedUserType == 1){
+				this.Fields.artist = false;
+			}else{
+				this.Fields.artist = true;
+			}
+		}
+	},
+	methods: {
+		saveUser() {
+			if (!this.Fields.name || !this.Fields.email || !this.Fields.password) {
+				window.alert('Preencha todos os campos');
+			}
+
+			if (this.Fields.password != this.confirmPassword) {
+				window.alert('As senhas estão diferentes');
+			}
+
+			let lFields = JSON.stringify(this.Fields);
+
+			/*
+				- Corrigir os erros do post
+			*/
+			axios.post(
+				'http://localhost:3090/User',
+				{Fields: lFields},
+				{ headers: this.headers}
+			).then(response => {
+				console.log('Sucesso: ', response);
+			}).catch(error => {
+				console.log('Erro: ', error);
+			});
+		}
+	}
 }
 </script>
 
