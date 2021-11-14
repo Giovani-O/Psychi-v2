@@ -100,21 +100,19 @@ export default {
 		saveUser() {
 			if (!this.Fields.name || !this.Fields.email || !this.Fields.password) {
 				window.alert('Preencha todos os campos');
+				return;
 			}
 
 			if (this.Fields.password != this.confirmPassword) {
 				window.alert('As senhas estão diferentes');
+				return;
 			}
 
-			let lFields = JSON.stringify(this.Fields);
+			// let lFields = JSON.stringify(this.Fields);
 
-			/*
-				- Corrigir os erros do post
-				- Código 403
-			*/
 			axios.post(
 				'http://localhost:3090/User',
-				{Fields: lFields},
+				this.Fields,
 				{ headers: this.headers}
 			).then(response => {
 				console.log('Sucesso: ', response);
