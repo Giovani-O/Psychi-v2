@@ -115,6 +115,7 @@
 
 <script>
 import { bus } from '@/main';
+import axios from 'axios';
 
 export default {
   data() {
@@ -145,28 +146,56 @@ export default {
 					src: '',
 				},
 			],
+			headers: {
+				'Content-Type': 'application/json',
+			}
     }
   },
 	methods: {
-		saveAlbum(){
-			let album = [];
-			for(let i = 0; i <= 3; i++) {
-				album.push({
-					code: this.songs[i].code,
-					title: this.songs[i].title,
-					// src: this.songs[i].src,
-					// src: new Blob([this.songs[i].src], {type: 'audio/mpeg'}),
-					src: this.songs[i].src,
-					artist: this.artist,
-					album: this.albumName,
-					cover: this.cover,
-				});
+		async saveAlbum(){
+			var lSong1 = await this.getBase64(this.songs[0].src).then(a => {return a})
+			var lSong2 = await this.getBase64(this.songs[1].src).then(a => {return a})
+			var lSong3 = await this.getBase64(this.songs[2].src).then(a => {return a})
+			var lSong4 = await this.getBase64(this.songs[3].src).then(a => {return a})
+			var lCover = await this.getBase64(this.cover).then(a => {return a})
+			
+			console.log(lSong1);
+
+			let album = {
+				artistName: this.artist,
+				albumName: this.albumName,
+				song1: lSong1,
+				song2: lSong2,
+				song3: lSong3,
+				song4: lSong4,
+				cover: lCover,
 			}
 
-			bus.$emit('albumSaved', album);
-			window.alert('Album salvo');
-			this.$router.push('/dashboard');
+			console.log(album);
+			axios.post(
+				'http://localhost:3090/Album',
+				album,
+				{ headers: this.headers}
+			).then(response => {
+				console.log('Sucesso: ', response);
+
+				bus.$emit('albumSaved', album);
+				window.alert('Album salvo');
+				this.$router.push('/dashboard');
+
+			}).catch(error => {
+				console.log('Erro: ', error);
+			});
+		},
+		getBase64(file) {
+			return new Promise((resolve, reject) => {
+				const reader = new FileReader();
+				reader.readAsDataURL(file);
+				reader.onload = () => resolve(reader.result);
+				reader.onerror = error => reject(error);
+			});
 		}
+
 	}
 }
 </script>
