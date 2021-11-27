@@ -115,6 +115,8 @@ export default {
 				this.Fields,
 				{ headers: this.headers}
 			).then(response => {
+				window.alert('Usuário cadastrado com sucesso');
+				this.$router.push('/login');
 				console.log('Sucesso: ', response);
 			}).catch(error => {
 				console.log('Erro: ', error);

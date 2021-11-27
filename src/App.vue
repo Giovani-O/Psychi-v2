@@ -16,9 +16,10 @@
           Psychi
         </router-link>
       </v-toolbar-title>
+      <v-btn @click="getAlbums">Carregar albums</v-btn>
       <v-spacer></v-spacer>
       <router-link to="/createalbum">
-        <v-icon title="Adicionar Albuns/Músicas" class="mr-4">mdi-plus</v-icon>
+        <v-icon title="Adicionar Albuns/Músicas" class="mr-4">mdi-music-note-plus</v-icon>
       </router-link>
       <router-link title="Login" to="/login">
         <v-icon large>mdi-account-circle</v-icon>
@@ -240,6 +241,7 @@
 
 <script>
   import { bus } from '@/main';
+  import axios from 'axios';
 
   export default {
     data() { 
@@ -257,6 +259,9 @@
         newPlaylist: [],
         dialog: false,
         components: {
+        },
+        axiosHeaders: {
+          'Content-Type': 'application/json',
         },
         songs: [
           {
@@ -344,6 +349,66 @@
       });
     },
     methods: {
+      // Chamar esse método na inicialização do sistema e ao salvar um novo album;
+      async getAlbums() {
+        console.log('Loading...')
+        let allAlbums = await axios.get(
+          'http://localhost:3090/Album',
+          { headers: this.axiosHeaders }
+        );
+        console.log(allAlbums.data[0].albumName);
+        console.log('Done...')
+
+        for (let i = 0; i < allAlbums.data.length; i++){
+          this.songs.push(
+            {
+              title: allAlbums.data[i].albumName,
+              artist: allAlbums.data[i].artistName,
+              src: allAlbums.data[i].song1
+            },
+            {
+              title: allAlbums.data[i].albumName,
+              artist: allAlbums.data[i].artistName,
+              src: allAlbums.data[i].song2
+            },
+            {
+              title: allAlbums.data[i].albumName,
+              artist: allAlbums.data[i].artistName,
+              src: allAlbums.data[i].song3
+            },
+            {
+              title: allAlbums.data[i].albumName,
+              artist: allAlbums.data[i].artistName,
+              src: allAlbums.data[i].song4
+            },
+          );
+        }
+
+        for (let album in allAlbums.data) {
+          this.songs.push(
+            {
+              title: album.albumName,
+              artist: album.artistName,
+              src: 'album.song1'
+            },
+            {
+              title: album.albumName,
+              artist: album.artistName,
+              src: 'album.song2'
+            },
+            {
+              title: album.albumName,
+              artist: album.artistName,
+              src: 'album.song3'
+            },
+            {
+              title: album.albumName,
+              artist: album.artistName,
+              src: 'album.song4'
+            },
+          );
+        }
+      },
       play(song) {
         if (typeof song.src != "undefined"){
           this.current = song;

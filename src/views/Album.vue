@@ -52,6 +52,7 @@
 </template>
 
 <script>
+
 export default {
 	data(){
 		return {
@@ -144,7 +145,11 @@ export default {
 	},
 	mounted() {
 		this.thumbnail = require('@/assets/placeholder.jpg');
-	}
+		this.getAlbums
+	},
+	methods: {
+		
+	},
 }
 </script>
 

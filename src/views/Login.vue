@@ -7,18 +7,21 @@
 				<div class="py-16 px-16">
 					<h1 style="color: white">Entre ou cadastre sua conta no <span class="psychi">Psychi</span></h1>
 					<v-text-field 
-						dark class="login-text" 
+						dark class="login-text"
 						label="E-mail" 
 						color="#771cff"
+						v-model="Fields.email"
 					>
 					</v-text-field>
 					<v-text-field 
 						dark class="login-text" 
 						label="Senha" 
 						color="#771cff"
+						type="password"
+						v-model="Fields.password"
 					>
 					</v-text-field>
-					<v-btn dark color="transparent" class="rounded-pill action-btn mr-4">
+					<v-btn dark color="transparent" class="rounded-pill action-btn mr-4" @click="login()">
 						<router-link class="btn-link" to="/dashboard">Entrar</router-link>
 					</v-btn>
 					<v-btn dark color="transparent" class="rounded-pill action-btn">
@@ -31,13 +34,28 @@
 </template>
 
 <script>
+import axios from 'axios';
+import { bus } from '@/main';
 
 export default {
   data() {
     return {
-
+			Fields: {
+				name: '',
+				email: '',
+				password: '',
+				artist: false,
+			},
+			headers: {
+				'Content-Type': 'application/json',
+			}
     }
-  }
+  },
+	methods: {
+		login() {
+			
+		}
+	},
 }
 </script>
 
