@@ -16,7 +16,6 @@
           Psychi
         </router-link>
       </v-toolbar-title>
-      <v-btn @click="getAlbums">Carregar albums</v-btn>
       <v-spacer></v-spacer>
       <router-link to="/createalbum">
         <v-icon title="Adicionar Albuns/Músicas" class="mr-4">mdi-music-note-plus</v-icon>
@@ -144,8 +143,9 @@
             <v-img
               width="44.5"
               height="44.5"
-              src="@/assets/placeholder.jpg"
+              :src="current.cover"
             ></v-img>
+            <!-- src="@/assets/placeholder.jpg" -->
           </v-col>
           <v-col cols="9">
             <h4 id="song-title">{{ current.title}}</h4>
@@ -265,25 +265,26 @@
         },
         songs: [
           {
-            title: 'Venger',
-            artist: 'Perturbator',
+            title: 'Welcome to Psychi',
+            artist: 'Psychi .v2',
             src: require('@/assets/audio/venger.mp3'),
+            cover: require("@/assets/placeholder.jpg"),
           },
-          {
-            title: 'Elevation',
-            artist: 'Edictum',
-            src: require('@/assets/audio/elevation.mp3'),
-          },
-          {
-            title: 'Neon Renegade',
-            artist: 'Harris Heller',
-            src: require('@/assets/audio/neonrenegade.mp3'),
-          },
-          {
-            title: 'Cyber Attack',
-            artist: 'Infraction',
-            src: require('@/assets/audio/cyberattack.mp3'),
-          }
+          // {
+          //   title: 'Elevation',
+          //   artist: 'Edictum',
+          //   src: require('@/assets/audio/elevation.mp3'),
+          // },
+          // {
+          //   title: 'Neon Renegade',
+          //   artist: 'Harris Heller',
+          //   src: require('@/assets/audio/neonrenegade.mp3'),
+          // },
+          // {
+          //   title: 'Cyber Attack',
+          //   artist: 'Infraction',
+          //   src: require('@/assets/audio/cyberattack.mp3'),
+          // }
         ],
         playlists: [
           {
@@ -337,6 +338,7 @@
       }
     },
     created() {
+      this.getAlbums();
       this.current = this.songs[this.index];
       this.player.src = this.current.src;
       this.player.volume = this.audioVolume;
@@ -362,49 +364,28 @@
         for (let i = 0; i < allAlbums.data.length; i++){
           this.songs.push(
             {
-              title: allAlbums.data[i].albumName,
+              title: allAlbums.data[i].songTitle1,
               artist: allAlbums.data[i].artistName,
-              src: allAlbums.data[i].song1
+              src: allAlbums.data[i].song1,
+              cover: allAlbums.data[i].cover,
             },
             {
-              title: allAlbums.data[i].albumName,
+              title: allAlbums.data[i].songTitle2,
               artist: allAlbums.data[i].artistName,
-              src: allAlbums.data[i].song2
+              src: allAlbums.data[i].song2,
+              cover: allAlbums.data[i].cover,
             },
             {
-              title: allAlbums.data[i].albumName,
+              title: allAlbums.data[i].songTitle3,
               artist: allAlbums.data[i].artistName,
-              src: allAlbums.data[i].song3
+              src: allAlbums.data[i].song3,
+              cover: allAlbums.data[i].cover,
             },
             {
-              title: allAlbums.data[i].albumName,
+              title: allAlbums.data[i].songTitle4,
               artist: allAlbums.data[i].artistName,
-              src: allAlbums.data[i].song4
-            },
-          );
-        }
-
-        for (let album in allAlbums.data) {
-          this.songs.push(
-            {
-              title: album.albumName,
-              artist: album.artistName,
-              src: 'album.song1'
-            },
-            {
-              title: album.albumName,
-              artist: album.artistName,
-              src: 'album.song2'
-            },
-            {
-              title: album.albumName,
-              artist: album.artistName,
-              src: 'album.song3'
-            },
-            {
-              title: album.albumName,
-              artist: album.artistName,
-              src: 'album.song4'
+              src: allAlbums.data[i].song4,
+              cover: allAlbums.data[i].cover,
             },
           );
         }

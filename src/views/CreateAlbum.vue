@@ -8,6 +8,12 @@
 					<h1 style="color: white">Adicione um album e suas faixas</h1>
 					<v-text-field 
 						dark class="create-text" 
+						label="Nome do Artista" 
+						color="#771cff"
+						v-model="artist"
+					/>
+					<v-text-field 
+						dark class="create-text" 
 						label="Nome do Album" 
 						color="#771cff"
 						v-model="albumName"
@@ -121,7 +127,7 @@ export default {
   data() {
     return {
 			// Dados básicos de um álbum
-			artist: 'Placeholder',
+			artist: '',
 			albumName: '',
 			cover: '',
 			songs: [
@@ -164,6 +170,10 @@ export default {
 			let album = {
 				artistName: this.artist,
 				albumName: this.albumName,
+				songTitle1: this.songs[0].title,
+				songTitle2: this.songs[1].title,
+				songTitle3: this.songs[2].title,
+				songTitle4: this.songs[3].title,
 				song1: lSong1,
 				song2: lSong2,
 				song3: lSong3,
